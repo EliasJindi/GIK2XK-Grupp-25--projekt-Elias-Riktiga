@@ -7,12 +7,16 @@ const Cart = sequelize.define('cart', {
     primaryKey: true,
     autoIncrement: true
   },
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   payed: {
-    type: DataTypes.BOOLEAN, // Motsvarar bool i UML [cite: 169]
+    type: DataTypes.BOOLEAN,
     defaultValue: false
   }
 }, {
-  underscored: true // Skapar user_id istället för userId [cite: 173]
+  underscored: true // Matchar din produktmodell
 });
 
 module.exports = Cart;

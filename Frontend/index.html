@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elias Gaming Store</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Elias Gaming Store</h1>
+        <div id="cart-status">
+            Varukorg: <span id="cart-count">0</span> varor 
+            <button onclick="emptyCart()" class="btn-clear">Töm</button>
+        </div>
+    </header>
+
+    <main>
+        <section id="cart-details" class="cart-summary-section">
+            <h2>Din Varukorg</h2>
+            <div id="cart-items-list">
+                <p>Din varukorg är tom.</p>
+            </div>
+            
+            <div class="cart-total-footer">
+                <h3>Total att betala: <span id="total-price-display">0</span> kr</h3>
+                <button onclick="checkout()" class="btn-checkout">Genomför Köp / Betala</button>
+            </div>
+        </section>
+
+        <hr>
+
+        <section>
+            <h2>Våra Produkter</h2>
+            <div id="product-container" class="grid-container">
+                </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

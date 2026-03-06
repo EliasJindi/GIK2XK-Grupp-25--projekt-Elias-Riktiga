@@ -8,11 +8,11 @@ const CartRow = sequelize.define('cart_row', {
     autoIncrement: true
   },
   amount: {
-    type: DataTypes.DOUBLE, // Double enligt UML [cite: 167]
-    allowNull: false
+    type: DataTypes.INTEGER,
+    defaultValue: 1
   }
 }, {
-  underscored: true
+  underscored: true // Matchar din produktmodell
 });
 
 module.exports = CartRow;

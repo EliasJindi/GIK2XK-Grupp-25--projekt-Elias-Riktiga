@@ -12,17 +12,17 @@ const Product = sequelize.define('product', {
     allowNull: false
   },
   description: {
-    type: DataTypes.TEXT // Vi använder TEXT för att rymma längre beskrivningar [cite: 171]
+    type: DataTypes.TEXT // TEXT rymmer längre beskrivningar
   },
   price: {
-    type: DataTypes.DOUBLE, // Double enligt kravet i diagrammet [cite: 176]
+    type: DataTypes.DOUBLE, // Double enligt kravet i diagrammet
     allowNull: false
   },
   image_url: {
-    type: DataTypes.STRING // Sparar länken till produktbilden [cite: 179]
+    type: DataTypes.STRING // Sparar länken till produktbilden
   }
 }, {
-  underscored: true // Ser till att databasen använder t.ex. created_at [cite: 157, 161]
+  underscored: true // Använder t.ex. created_at och product_id
 });
 
 module.exports = Product;

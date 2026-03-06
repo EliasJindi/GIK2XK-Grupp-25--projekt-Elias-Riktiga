@@ -7,12 +7,17 @@ const Rating = sequelize.define('rating', {
     primaryKey: true,
     autoIncrement: true
   },
-  rating: {
-    type: DataTypes.DOUBLE,
+  product_id: {
+    type: DataTypes.INTEGER,
     allowNull: false
+  },
+  score: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    validate: { min: 1, max: 5 }
   }
 }, {
-  underscored: true
+  underscored: true // Matchar din produktmodell
 });
 
-module.exports = Rating; // Denna rad gör att app.js kan hitta modellen!
+module.exports = Rating;
