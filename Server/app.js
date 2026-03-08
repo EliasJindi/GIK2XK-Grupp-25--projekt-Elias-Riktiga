@@ -14,7 +14,7 @@ const CartRow = require('./Models/cart_row');
 User.hasMany(Cart, { foreignKey: 'user_id' });
 Cart.belongsTo(User, { foreignKey: 'user_id' });
 
-Product.hasMany(Rating, { foreignKey: 'product_id' });
+Product.hasMany(Rating, { foreignKey: 'product_id', onDelete: 'CASCADE' });
 Rating.belongsTo(Product, { foreignKey: 'product_id' });
 
 Cart.belongsToMany(Product, { through: CartRow, foreignKey: 'cart_id' });
@@ -27,7 +27,7 @@ Rating.belongsTo(User, { foreignKey: 'user_id' });
 // 3. EXPRESS SETUP
 const app = express();
 app.use(cors()); // Tillåter React på port 5173 att prata med Backend på port 5000
-app.use(express.json());
+app.use(express.json()); // Detta behövs för att ta emot JSON-data från frontend
 
 // 4. ROUTES
 const productRoutes = require('./Routes/productRoutes');
@@ -45,11 +45,10 @@ app.get('/', (req, res) => res.send('Backend är 100% redo och synkad!'));
 // 5. SYNKA OCH STARTA
 const PORT = process.env.PORT || 5000;
 
-// alter: true uppdaterar tabellerna om du lägger till nya fält i modellerna
-// Istället för alter: true, kör vi en vanlig sync
+// Istället för alter: true, kör vi en vanlig sync för att databasen inte ska krascha
 sequelize.sync().then(() => {
-  app.listen(5000, () => {
-    console.log('Servern körs på port 5000');
+  app.listen(PORT, () => {
+    console.log(`Servern körs på port ${PORT}`);
     console.log('MySQL-databasen är synkad!');
   });
 }).catch(err => {

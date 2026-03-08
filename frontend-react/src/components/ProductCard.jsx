@@ -9,17 +9,21 @@ import RemoveIcon from '@mui/icons-material/Remove';
 import CommentIcon from '@mui/icons-material/Comment';
 
 function ProductCard({ product, onAddToCart }) {
+  // State-hantering för antal i kundvagn samt recensions-fönstret
   const [quantity, setQuantity] = useState(1);
   const [openComments, setOpenComments] = useState(false);
   
+  // State-hantering för formuläret när en användare skapar en ny recension
   const [userName, setUserName] = useState(""); 
   const [userRating, setUserRating] = useState(5);
   const [userComment, setUserComment] = useState("");
 
+  // Funktion för att öka/minska antal i varukorgen (kan inte understiga 1)
   const adjustQty = (val) => {
     if (quantity + val >= 1) setQuantity(quantity + val);
   };
 
+  // Funktion för att skicka recension till backend (POST)
   const handleReviewSubmit = () => {
     const finalComment = userName.trim() !== "" 
       ? `[${userName}] rapporterar: ${userComment}` 
@@ -35,7 +39,7 @@ function ProductCard({ product, onAddToCart }) {
         rating: safeRating,
         score: safeRating,
         comment: finalComment, 
-        userId: 1 
+        userId: 1 // Hårdkodat ID då inloggning ej är ett krav
       })
     })
     .then(res => res.json())
@@ -79,7 +83,14 @@ function ProductCard({ product, onAddToCart }) {
           alt={product.title} 
         />
         <CardContent>
-          <Typography variant="h5" sx={{ fontWeight: 'bold', textTransform: 'uppercase' }}>{product.title}</Typography>
+          <Typography variant="h5" sx={{ fontWeight: 'bold', textTransform: 'uppercase' }}>
+            {product.title}
+          </Typography>
+          
+          {/* NYTT: Beskrivningen av produkten visas här! */}
+          <Typography variant="body2" sx={{ color: '#a7bc89', mt: 1, mb: 1, fontStyle: 'italic', minHeight: '40px' }}>
+            {product.description || "Ingen information tillgänglig."}
+          </Typography>
           
           <Box sx={{ display: 'flex', alignItems: 'center', my: 1 }}>
             <Rating value={product.averageRating || 0} precision={0.5} readOnly size="small" sx={{ color: '#ff4400' }} />
@@ -94,7 +105,7 @@ function ProductCard({ product, onAddToCart }) {
             </Button>
           </Box>
 
-          {/* HÄR ÄR FIXEN FÖR KORTETS PRIS */}
+          {/* Formaterar priset med svenska mellanrum */}
           <Typography variant="h5" sx={{ color: '#ff4400', fontWeight: 'bold', mb: 2 }}>
             {product.price ? product.price.toLocaleString('sv-SE') : 0} kr
           </Typography>
@@ -111,6 +122,7 @@ function ProductCard({ product, onAddToCart }) {
         </CardContent>
       </Card>
 
+      {/* MODAL FÖR RECENSIONER / FÄLTRAPPORTER */}
       <Dialog open={openComments} onClose={() => setOpenComments(false)} PaperProps={{ sx: { bgcolor: 'rgba(13, 17, 9, 0.95)', backdropFilter: 'blur(10px)', color: '#f2e8cf', minWidth: '350px', border: '1px solid #4b5320', boxShadow: '0 20px 50px rgba(0,0,0,0.9)' } }}>
         <DialogTitle sx={{ borderBottom: '1px solid #4b5320', fontWeight: 'bold' }}>FÄLTRAPPORTER: {product.title}</DialogTitle>
         <DialogContent sx={{ mt: 2 }}>
