@@ -1,6 +1,4 @@
-/* =========================================
-   1. GLOBAL RESET (Tar bort fula standardmarginaler)
-   ========================================= */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,9 +10,7 @@ html, body, #root {
   min-height: 100vh;
 }
 
-/* =========================================
-   2. MILITÄR "HÖG AURA" BAKGRUND
-   ========================================= */
+/*. MILITÄR "HÖG AURA" BAKGRUND*/
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
   
@@ -24,26 +20,26 @@ body {
   background-position: center;     
   background-attachment: fixed;    
   background-repeat: no-repeat;    
-  background-color: #0d1109; /* Mörkgrön reservfärg om bilden laddar långsamt */
+  background-color: #0d1109; 
   
-  color: #f2e8cf; /* Standard textfärg (ljus beige) så det alltid syns */
+  color: #f2e8cf; 
 }
 
-/* =========================================
-   3. CUSTOM SCROLLBAR (Taktisk design)
-   ========================================= */
+/* 
+    CUSTOM SCROLLBAR 
+ */
 ::-webkit-scrollbar {
   width: 12px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0d1109; /* Samma som den mörkaste gröna */
+  background: #0d1109; 
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #4b5320; /* Den klassiska militärgröna */
+  background: #4b5320;
   border-radius: 6px;
-  border: 2px solid #0d1109; /* Ger lite rymd runt scrollbaren */
+  border: 2px solid #0d1109; 
 }
 
 ::-webkit-scrollbar-thumb:hover {

@@ -1,9 +1,15 @@
+/* 
+API-ROUTES FÖR ANVÄNDARE 
+Den här filen bestämmer hur hemsidan får prata med backend 
+när det gäller användare. Den sköter både inloggning och 
+att skapa nya konton
+*/
 const express = require('express');
 const router = express.Router();
 const userService = require('../Services/userService');
 const User = require('../Models/user');
 
-// GET: http://localhost:5000/users (Hämta alla användare)
+//Hämta alla användare
 router.get('/', async (req, res) => {
   try {
     const users = await userService.getAll();
@@ -13,7 +19,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// POST: http://localhost:5000/users (Registrera ny användare)
+// Registrera ny användar
 router.post('/', async (req, res) => {
   try {
     const newUser = await userService.create(req.body);

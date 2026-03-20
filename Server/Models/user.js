@@ -1,3 +1,7 @@
+/* 
+Den här filen bestämmer vilken information vi sparar om de som 
+använder webbshoppen. 
+*/
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
@@ -7,7 +11,7 @@ const User = sequelize.define('user', {
     primaryKey: true,
     autoIncrement: true
   },
-  username: { // VIKTIGT: Lägg till denna för att kunna visa "General_Elias"
+  username: { 
     type: DataTypes.STRING,
     allowNull: false,
     unique: true
@@ -22,7 +26,7 @@ const User = sequelize.define('user', {
     allowNull: false
   }
 }, {
-  underscored: true // Matchar din produktmodell
+  underscored: true 
 });
 
 module.exports = User;

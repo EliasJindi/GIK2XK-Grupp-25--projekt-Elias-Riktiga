@@ -4,7 +4,6 @@ const productService = require('../Services/productService');
 const Product = require('../Models/product'); // Importerar modellen för PUT och DELETE
 
 /**
- * GET: http://localhost:5000/products
  * Hämtar alla produkter från databasen.
  * Denna använder nu getAllProducts för att inkludera genomsnittsbetyg.
  */
@@ -19,7 +18,6 @@ router.get('/', async (req, res) => {
 });
 
 /**
- * GET: http://localhost:5000/products/:id
  * Hämtar en specifik produkt baserat på dess ID.
  */
 router.get('/:id', async (req, res) => {
@@ -35,7 +33,6 @@ router.get('/:id', async (req, res) => {
 });
 
 /**
- * POST: http://localhost:5000/products
  * Admin-rutt för att skapa en ny produkt i MySQL.
  */
 router.post('/', async (req, res) => {
@@ -48,7 +45,6 @@ router.post('/', async (req, res) => {
 });
 
 /**
- * PUT: http://localhost:5000/products/:id
  * Admin-rutt för att uppdatera (EDIT) en produkt.
  */
 router.put('/:id', async (req, res) => {
@@ -70,7 +66,6 @@ router.put('/:id', async (req, res) => {
 });
 
 /**
- * DELETE: http://localhost:5000/products/:id
  * Admin-rutt för att radera en produkt.
  */
 router.delete('/:id', async (req, res) => {

@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
-// Skapar anslutningen till MySQL med miljövariabler
+// Skapar anslutningen till MySQL 
 const sequelize = new Sequelize(
   process.env.DB_NAME || 'webshop_db',
   process.env.DB_USER || 'root',

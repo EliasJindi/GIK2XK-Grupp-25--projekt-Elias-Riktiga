@@ -4,7 +4,7 @@ const cartService = require('../Services/cartService');
 
 /**
  * POST: http://localhost:5000/cart/add
- * Används för att lägga till en vara eller ändra antal (+1 eller -1).
+ * Används för att lägga till en vara eller ändra antal.
  * Tar emot user_id, product_id och amount i req.body.
  */
 router.post('/add', async (req, res) => {
@@ -21,14 +21,13 @@ router.post('/add', async (req, res) => {
 });
 
 /**
- * GET: http://localhost:5000/cart/:userId
- * Hämtar den aktuella (obetalda) varukorgen för en specifik användare.
+ * Hämtar den aktuella obetalda varukorgen för en specifik användare.
  */
 router.get('/:userId', async (req, res) => {
   try {
     const userId = req.params.userId;
     
-    // Hämtar korgen inkl. alla produkter och deras antal
+    // Hämtar korgen inkl alla produkter och deras antal
     const cart = await cartService.getCartByUser(userId);
     
     res.json(cart);
@@ -38,7 +37,6 @@ router.get('/:userId', async (req, res) => {
 });
 
 /**
- * DELETE: http://localhost:5000/cart/clear/:userId
  * Tömmer hela varukorgen genom att radera alla dess rader i databasen.
  */
 router.delete('/clear/:userId', async (req, res) => {
@@ -54,7 +52,6 @@ router.delete('/clear/:userId', async (req, res) => {
 });
 
 /**
- * PUT: http://localhost:5000/cart/checkout/:userId
  * Genomför köpet genom att sätta korgens status till 'payed: true'.
  */
 router.put('/checkout/:userId', async (req, res) => {

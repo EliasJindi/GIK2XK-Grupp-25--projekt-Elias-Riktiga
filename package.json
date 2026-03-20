@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/EliasJindi/GIK2XK-Grupp-25--projekt-Elias-Riktiga#readme",
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.6",
     "dotenv": "^17.3.1",
     "express": "^5.2.1",

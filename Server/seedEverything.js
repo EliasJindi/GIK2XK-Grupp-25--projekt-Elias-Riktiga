@@ -1,3 +1,9 @@
+/* 
+SEEDING-SKRIPT
+Det här skriptet nollställer databasen och fyller den med 
+startdata. Det är perfekt för att snabbt komma igång på en 
+ny dator eller för att rensa bort gamla test-data.
+*/
 const sequelize = require('./config/db');
 const User = require('./Models/user');
 const Product = require('./Models/product');
@@ -6,7 +12,9 @@ const Cart = require('./Models/cart');
 const CartRow = require('./Models/cart_row');
 const bcrypt = require('bcrypt');
 
-// 1. RELATIONER (Måste matcha app.js för att databasen ska byggas rätt)
+//  RELATIONER (Måste matcha app.js för att databasen ska byggas rätt)
+// Vi definierar alla kopplingar mellan tabellerna här så att Sequelize 
+// vet exakt hur SQL-databasen ska struktureras
 User.hasMany(Cart, { foreignKey: 'user_id' });
 Cart.belongsTo(User, { foreignKey: 'user_id' });
 
@@ -23,11 +31,12 @@ const seed = async () => {
   try {
     console.log("--- STARTAR TOTAL NOLLSTÄLLNING ---");
     
-    // sync({ force: true }) raderar tabellerna om de finns och skapar nya
+    // sync raderar tabellerna om de finns och skapar nya
     await sequelize.sync({ force: true });
     console.log("✅ 1. Databasens struktur är helt återställd.");
 
     // Skapa test-användare (Generalen)
+    // Vi hashar lösenordet med Bcrypt innan vi sparar det för att möta
     const hashedPassword = await bcrypt.hash('elias123', 10);
     await User.create({
       username: 'Generalen',
@@ -37,6 +46,8 @@ const seed = async () => {
     console.log("✅ 2. Användaren 'Generalen' är skapad.");
 
     // Skapa militära produkter
+    // Vi skapar en lista med föremål för att uppfylla kravet på att kunden 
+    // ska kunna se en vy med flera produkter
     const militaryProducts = [
       { 
         title: "F-35 Lightning II", 
@@ -57,14 +68,14 @@ const seed = async () => {
         image_url: "/images/B2.jpg" 
       }
     ];
-    
+    // bulkCreate skickar in hela listan till databasen på en gång.
     await Product.bulkCreate(militaryProducts);
-    console.log("✅ 3. Militärt lager påfyllt med 3 produkter.");
+    console.log(" 3. Militärt lager påfyllt med 3 produkter.");
 
-    console.log("\n🚀 ALLT KLART! Databasen är nu redo.");
+    console.log("\n ALLT KLART! Databasen är nu redo.");
     process.exit();
   } catch (err) {
-    console.error("❌ FEL VID SEEDING:", err);
+    console.error(" FEL VID SEEDING:", err);
     process.exit(1);
   }
 };

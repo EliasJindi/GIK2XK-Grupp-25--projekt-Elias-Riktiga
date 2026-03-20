@@ -8,17 +8,19 @@ import ProductCard from './components/ProductCard';
 import CartDrawer from './components/CartDrawer';
 import AdminPanel from './components/AdminPanel';
 
+// Skapar ett anpassat militärtema med Material UI
 const militaryTheme = createTheme({
   palette: { mode: 'dark', primary: { main: '#4b5320' }, background: { default: '#0d1109' } },
 });
 
 function App() {
+  //  STATE-HANTERING 
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
 
-  // Hämtar produkter
+  // Hämtar produkter från vår express-server
   useEffect(() => {
     fetch('http://localhost:5000/products')
       .then(res => res.json())

@@ -1,3 +1,9 @@
+/* 
+ MODELL FÖR BETYG 
+Den här filen gör det möjligt för kunder att betygsätta 
+produkterna i butiken. Den sparar både poäng (1-5) och 
+kommentarer i databasen.
+*/
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 
@@ -11,7 +17,7 @@ const Rating = sequelize.define('rating', {
     type: DataTypes.INTEGER,
     allowNull: false
   },
-  user_id: { // VIKTIGT: Lägg till denna för att koppla till Generalen
+  user_id: { 
     type: DataTypes.INTEGER,
     allowNull: false
   },
@@ -20,12 +26,12 @@ const Rating = sequelize.define('rating', {
     allowNull: false,
     validate: { min: 1, max: 5 }
   },
-  comment: { // VIKTIGT: Lägg till denna för att spara din text "Riktigt stark"
+  comment: { 
     type: DataTypes.TEXT,
     allowNull: true
   }
 }, {
-  underscored: true // Vi behåller denna så det matchar din övriga databas
+  underscored: true 
 });
 
 module.exports = Rating;
