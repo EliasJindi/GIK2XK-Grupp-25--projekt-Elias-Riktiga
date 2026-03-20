@@ -6,7 +6,7 @@ import {
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import ProductCard from './components/ProductCard';
 import CartDrawer from './components/CartDrawer';
-import AdminPanel from './components/AdminPanel'; // Importerad AdminPanel
+import AdminPanel from './components/AdminPanel';
 
 const militaryTheme = createTheme({
   palette: { mode: 'dark', primary: { main: '#4b5320' }, background: { default: '#0d1109' } },
@@ -16,7 +16,7 @@ function App() {
   const [products, setProducts] = useState([]);
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [showAdmin, setShowAdmin] = useState(false); // State för att visa admin
+  const [showAdmin, setShowAdmin] = useState(false);
 
   // Hämtar produkter
   useEffect(() => {
@@ -24,20 +24,29 @@ function App() {
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error("Fel vid hämtning:", err));
-  }, [showAdmin]); // Uppdaterar listan ifall du lagt till/tagit bort något i admin!
+  }, [showAdmin]);
 
-  const addToCart = (product, quantity) => {
+  // Sparar varan till databasen OCH uppdaterar React state
+ const addToCart = async (product, quantity) => {
+    await fetch('http://localhost:5000/cart/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: 1, product_id: product.id, amount: quantity })
+    }).catch(err => console.error("Kunde inte spara i korgen:", err));
+
     setCart([...cart, { ...product, quantity }]);
-    setIsCartOpen(true); 
+    setIsCartOpen(true);
   };
+
+
 
   const clearCart = () => setCart([]);
 
-  // NY FUNKTION: Vad som händer när kunden slutför köpet
+  // Vad som händer när kunden slutför köpet
   const handleCheckout = () => {
     alert("ORDER BEKRÄFTAD!\n\nTack för ditt köp. Materielen levereras via C-17 Globemaster till angivna koordinater inom 24 timmar.");
-    clearCart(); // Tömmer korgen efter köp
-    setIsCartOpen(false); // Stänger sidofönstret
+    clearCart();
+    setIsCartOpen(false);
   };
 
   return (
@@ -46,7 +55,7 @@ function App() {
       <AppBar position="sticky" sx={{ bgcolor: '#0b1306', borderBottom: '2px solid #4b5320' }}>
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Typography variant="h6" sx={{ fontWeight: 'bold' }}>
-            ELIAS MILITARY COMMAND
+            Grupp 25
           </Typography>
           
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -55,13 +64,12 @@ function App() {
             <Button 
               onClick={() => {
                 if (showAdmin) {
-                  setShowAdmin(false); // Gå tillbaka till butiken utan lösenord
+                  setShowAdmin(false);
                 } else {
-                  // Promtar efter lösenord när man vill in i admin
                   const password = window.prompt("BEHÖRIGHET KRÄVS: Ange lösenord för Command Center");
-                  if (password === "elias123") { // Ditt lösenord
+                  if (password === "elias123") {
                     setShowAdmin(true);
-                  } else if (password !== null) { // Om de inte tryckte "Avbryt"
+                  } else if (password !== null) {
                     alert("ÅTKOMST NEKAD: Felaktigt lösenord.");
                   }
                 }
@@ -95,7 +103,7 @@ function App() {
         </Container>
       )}
 
-      {/* HÄR ÄR UPPDATERINGEN FÖR CARTDRAWER */}
+      {/* CARTDRAWER */}
       <CartDrawer 
         open={isCartOpen} 
         onClose={() => setIsCartOpen(false)} 

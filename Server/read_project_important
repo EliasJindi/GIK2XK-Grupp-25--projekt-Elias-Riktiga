@@ -1,0 +1,26 @@
+/*
+============================================================
+   PROJEKT-GUIDE: HUR MAN STARTAR ALLT FRÅN NOLL
+============================================================
+
+1. SKAPA DATABASEN (Körs i terminalen):
+   C:\xampp\mysql\bin\mysql.exe -u root -e "CREATE DATABASE IF NOT EXISTS webshop_db;"
+
+2. SERVER / BACKEND (Terminalen i mappen /Server):
+   cd Server
+   npm install
+   npm install bcrypt
+   node seedEverything.js   <-- (Görs en gång för att fylla databasen)
+   node app.js             <-- (Startar backend på port 5000)
+
+3. FRONTEND (Terminalen i mappen /frontend-react):
+   cd frontend-react
+   npm install
+   npm run dev              <-- (Startar hemsidan på localhost:5173)
+
+------------------------------------------------------------
+ADMIN-LOGIN:
+Användare: Generalen
+Lösenord: elias123
+------------------------------------------------------------
+*/

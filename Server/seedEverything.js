@@ -33,7 +33,6 @@ const seed = async () => {
       username: 'Generalen',
       email: 'generalen@militaren.se',
       password: hashedPassword,
-      role: 'admin'
     });
     console.log("✅ 2. Användaren 'Generalen' är skapad.");
 
