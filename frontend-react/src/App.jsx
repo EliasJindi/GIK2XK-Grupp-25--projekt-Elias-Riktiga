@@ -16,9 +16,19 @@ const militaryTheme = createTheme({
 function App() {
   //  STATE-HANTERING 
   const [products, setProducts] = useState([]);
-  const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [showAdmin, setShowAdmin] = useState(false);
+
+  // 1. LADDAR VARUKORGEN FRÅN LOKALT MINNE VID START
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("grupp25_cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+
+  // 2. SPARAR VARUKORGEN TILL LOKALT MINNE VARJE GÅNG DEN ÄNDRAS
+  useEffect(() => {
+    localStorage.setItem("grupp25_cart", JSON.stringify(cart));
+  }, [cart]);
 
   // Hämtar produkter från vår express-server
   useEffect(() => {
@@ -39,8 +49,6 @@ function App() {
     setCart([...cart, { ...product, quantity }]);
     setIsCartOpen(true);
   };
-
-
 
   const clearCart = () => setCart([]);
 
